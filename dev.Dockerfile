@@ -1,9 +1,14 @@
-FROM rust:1-slim-bullseye AS build
+FROM type-ahead-deps AS deps
 
-RUN cargo new type_ahead
-WORKDIR /type_ahead
-
-COPY Cargo.toml Cargo.lock .
-
-RUN cargo build
 RUN rustup component add rustfmt
+
+RUN apt-get update -q && \
+    apt-get install -y -q \
+    	    curl \
+	    make \
+    	    sqlite3
+
+FROM deps AS prep-data
+
+COPY data.mk .
+RUN make -f data.mk prep-data
