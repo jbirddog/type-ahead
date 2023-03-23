@@ -18,6 +18,17 @@ struct TypeAheadParams {
     limit: i32,
 }
 
+async fn find_cities_starting_with(
+    db: web::Data<Pool>,
+    query_params: web::Query<TypeAheadParams>,
+) -> Result<HttpResponse, actix_web::Error> {
+    let query =
+        db::Query::CityNamesStartingWith(query_params.prefix.to_string(), query_params.limit);
+    let result = db::execute(&db, query).await?;
+
+    Ok(HttpResponse::Ok().json(result))
+}
+
 async fn find_countries_starting_with(
     db: web::Data<Pool>,
     query_params: web::Query<TypeAheadParams>,
@@ -52,6 +63,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             // TODO: build the routes separately
             .service(web::resource("/").route(web::get().to(hello)))
+            .service(web::resource("/cities").route(web::get().to(find_cities_starting_with)))
             .service(web::resource("/countries").route(web::get().to(find_countries_starting_with)))
             .service(web::resource("/states").route(web::get().to(find_states_starting_with)))
     })
