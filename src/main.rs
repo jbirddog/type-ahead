@@ -11,8 +11,11 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello.")
 }
 
-async fn find_countries(_db: web::Data<Pool>) -> impl Responder {
-    HttpResponse::Ok().body("countries...")
+async fn find_countries(db: web::Data<Pool>) -> Result<HttpResponse, actix_web::Error> {
+    let query = db::Query::CountryNamesStartingWith("Un".to_string(), 100);
+    let result = db::execute(&db, query).await?;
+
+    Ok(HttpResponse::Ok().json(result))
 }
 
 #[actix_web::main]

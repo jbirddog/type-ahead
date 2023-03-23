@@ -5,6 +5,7 @@ pub type Connection = r2d2::PooledConnection<r2d2_sqlite::SqliteConnectionManage
 pub type Pool = r2d2::Pool<r2d2_sqlite::SqliteConnectionManager>;
 
 pub enum Query {
+    // TODO: String vs &str
     CountryNamesStartingWith(String, i32),
 }
 
@@ -23,7 +24,7 @@ pub async fn execute(pool: &Pool, query: Query) -> Result<Vec<Data>, Error> {
         .map_err(error::ErrorInternalServerError)?;
 
     web::block(move || match query {
-    		    // TODO: pass in params from match instead of query
+        // TODO: pass in params from match instead of query
         Query::CountryNamesStartingWith(_, _) => find_countries_starting_with(conn, query),
     })
     .await?
