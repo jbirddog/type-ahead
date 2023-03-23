@@ -8,7 +8,14 @@ RUN apt-get update -q && \
 	    make \
     	    sqlite3
 
-FROM deps AS prep-data
+COPY data/common.mk data/common.mk
 
-COPY data.mk .
-RUN make -f data.mk prep-data
+FROM deps AS fetch-data
+
+COPY data/fetch.mk data/fetch.mk
+RUN make -C data -f fetch.mk fetch-data
+
+FROM fetch-data AS import-data
+
+COPY data/import.mk data/import.mk
+RUN make -C data -f import.mk import-data
