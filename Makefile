@@ -15,14 +15,6 @@ all: dev-env
 dev-env:
 	docker compose build --progress=plain $(DEV_SERVICE)
 
-.PHONY: compile
-compile:
-	$(AS_ROOT) cargo build
-
-.PHONY: run
-run:
-	$(AS_ROOT) cargo run
-
 .PHONY: shell
 shell:
 	$(AS_ME) /bin/bash
@@ -35,14 +27,22 @@ shell-as-root:
 owner-check:
 	find . ! -user $(MY_USER) ! -group $(MY_GROUP)
 
-#
-# tests
-#
+.PHONY: compile
+compile:
+	$(AS_ROOT) cargo build --color=never
 
 .PHONY: tests
 tests:
 	$(AS_ROOT) cargo test
 
-#
-# tooling
-#
+.PHONY: fmt
+fmt:
+	$(AS_ROOT) cargo fmt
+
+.PHONY: stop
+stop:
+	docker compose down
+
+.PHONY: run
+run: stop
+	docker compose up -d #cargo run

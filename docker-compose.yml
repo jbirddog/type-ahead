@@ -4,5 +4,10 @@ services:
     build:
       context: .
       dockerfile: dev.Dockerfile
+    command:
+      - "target/debug/type_ahead"
+    ports:
+      - 5000:5000/tcp
     volumes:
       - ./src:/type_ahead/src
+      - ./target:/type_ahead/target
