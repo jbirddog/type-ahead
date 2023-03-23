@@ -55,7 +55,11 @@ fn find_cities_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::CityStateAndCountryName(row.get(0)?, row.get(1)?, row.get(2)?))
+        Ok(Data::CityStateAndCountryName(
+            row.get(0)?,
+            row.get(1)?,
+            row.get(2)?,
+        ))
     })
     .and_then(Iterator::collect)
 }
