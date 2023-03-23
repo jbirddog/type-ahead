@@ -5,6 +5,7 @@ RUN rustup component add rustfmt
 RUN apt-get update -q && \
     apt-get install -y -q \
     	    curl \
+	    libsqlite3-dev \
 	    make \
     	    sqlite3
 

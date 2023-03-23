@@ -7,3 +7,6 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
+r2d2 = "0.8"
+r2d2_sqlite = "0.20"
+rusqlite = "0.27"
