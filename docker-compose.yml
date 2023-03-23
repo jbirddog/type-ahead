@@ -1,0 +1,10 @@
+services:
+  dev:
+    container_name: type-ahead-dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    #environment:
+    #  PRE_COMMIT_HOME: "/app/.cache/pre-commit"
+    volumes:
+      - ./:/app
