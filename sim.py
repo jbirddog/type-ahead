@@ -25,6 +25,7 @@ def sim(query, limit):
     #print(json.dumps(results, indent=4))
 
 if __name__ == "__main__":
+    print("Enter city name to simulate type-ahead for: ")
     query = input()
     limit = 100
     sim(query, limit)
