@@ -57,3 +57,7 @@ stop:
 .PHONY: start
 start: stop
 	docker compose up -d
+
+.PHONY: sim
+sim:
+	python sim.py

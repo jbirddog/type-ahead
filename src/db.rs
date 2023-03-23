@@ -15,8 +15,8 @@ pub enum Query {
 pub enum Data {
     #[serde(rename = "name")]
     Name(String),
-    #[serde(rename = "nameAndCountryName")]
-    NameAndCountryName(String, String),
+    #[serde(rename = "cityStateAndCountryName")]
+    CityStateAndCountryName(String, String, String),
 }
 
 type QueryResult = Result<Vec<Data>, rusqlite::Error>;
@@ -47,7 +47,7 @@ pub async fn execute(pool: &Pool, query: Query) -> Result<Vec<Data>, Error> {
 
 fn find_cities_starting_with(conn: Connection, prefix: String, limit: i32) -> QueryResult {
     let mut stmt = conn.prepare(
-        "SELECT name, country_name 
+        "SELECT name, state_name, country_name 
     FROM cities
     WHERE name LIKE ? || '%'
     ORDER BY name
@@ -55,7 +55,7 @@ fn find_cities_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::NameAndCountryName(row.get(0)?, row.get(1)?))
+        Ok(Data::CityStateAndCountryName(row.get(0)?, row.get(1)?, row.get(2)?))
     })
     .and_then(Iterator::collect)
 }
