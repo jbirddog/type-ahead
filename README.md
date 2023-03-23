@@ -13,13 +13,13 @@ Proof of concept type-ahead api using rust/actix-web/sqlite.
 
 The server will be running on port 5000. Endpoints are:
 
-[http://localhost:5000/countries?prefix=un&limit=100](http://localhost:5000/countries?prefix=ca&limit=100)
+[http://localhost:5000/countries?prefix=un&limit=100](http://localhost:5000/countries?prefix=un&limit=100)
 
-[http://localhost:5000/states?prefix=ga&limit=100](http://localhost:5000/countries?prefix=ca&limit=100)
+[http://localhost:5000/states?prefix=ga&limit=100](http://localhost:5000/countries?prefix=ga&limit=100)
 
-[http://localhost:5000/cities?prefix=ma&limit=100](http://localhost:5000/countries?prefix=ca&limit=100)
+[http://localhost:5000/cities?prefix=ma&limit=100](http://localhost:5000/countries?prefix=ma&limit=100)
 
-Prefix must be a string, limit must be an int.
+prefix and limit are required, limit must be an int.
 
 `make tests` run tests (currently none)
 
