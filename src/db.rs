@@ -13,8 +13,10 @@ pub enum Query {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Data {
-    #[serde(rename = "name")]
-    Name(String),
+    #[serde(rename = "countryName")]
+    CountryName(String),
+    #[serde(rename = "stateAndCountryName")]
+    StateAndCountryName(String, String),
     #[serde(rename = "cityStateAndCountryName")]
     CityStateAndCountryName(String, String, String),
 }
@@ -75,14 +77,14 @@ fn find_countries_starting_with(conn: Connection, prefix: String, limit: i32) ->
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::Name(row.get(0)?))
+        Ok(Data::CountryName(row.get(0)?))
     })
     .and_then(Iterator::collect)
 }
 
 fn find_states_starting_with(conn: Connection, prefix: String, limit: i32) -> QueryResult {
     let mut stmt = conn.prepare(
-        "SELECT name 
+        "SELECT name, country_name 
     FROM states
     WHERE name LIKE ? || '%'
     ORDER BY name
@@ -90,7 +92,7 @@ fn find_states_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::Name(row.get(0)?))
+        Ok(Data::StateAndCountryName(row.get(0)?, row.get(1)?))
     })
     .and_then(Iterator::collect)
 }
