@@ -1,3 +1,9 @@
 FROM rust:1-slim-bullseye AS build
 
-WORKDIR /app
+RUN cargo new type_ahead
+WORKDIR /type_ahead
+
+COPY Cargo.toml Cargo.lock .
+
+RUN cargo build
+RUN rustup component add rustfmt

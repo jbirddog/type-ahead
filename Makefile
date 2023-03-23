@@ -17,7 +17,11 @@ dev-env:
 
 .PHONY: compile
 compile:
-	$(AS_ME) cargo build
+	$(AS_ROOT) cargo build
+
+.PHONY: run
+run:
+	$(AS_ROOT) cargo run
 
 .PHONY: shell
 shell:
@@ -37,7 +41,7 @@ owner-check:
 
 .PHONY: tests
 tests:
-	$(AS_ME) cargo test
+	$(AS_ROOT) cargo test
 
 #
 # tooling

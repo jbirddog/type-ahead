@@ -4,7 +4,5 @@ services:
     build:
       context: .
       dockerfile: dev.Dockerfile
-    #environment:
-    #  PRE_COMMIT_HOME: "/app/.cache/pre-commit"
     volumes:
-      - ./:/app
+      - ./src:/type_ahead/src
