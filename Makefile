@@ -43,6 +43,7 @@ fmt:
 stop:
 	docker compose down
 
+# cargo watch?
 .PHONY: run
 run: stop
 	docker compose up -d #cargo run
