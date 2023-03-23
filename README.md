@@ -1,7 +1,8 @@
 # type-ahead
 Type Ahead
 
-Proof of concept type-ahead api using rust/actix-web/sqlite.
+Proof of concept type-ahead api using rust/actix-web/sqlite. Currently zero effort has been made to optimize 
+any part of this (tables arn't even indexed). Regardless performance is quite good.
 
 ## To use:
 
