@@ -12,7 +12,6 @@ async fn hello() -> impl Responder {
 }
 
 async fn find_countries(_db: web::Data<Pool>) -> impl Responder {
-
     HttpResponse::Ok().body("countries...")
 }
 
