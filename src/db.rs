@@ -11,7 +11,8 @@ pub enum Query {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Data {
-    CountryName { name: String },
+    #[serde(rename = "name")]
+    Name(String),
 }
 
 type QueryResult = Result<Vec<Data>, rusqlite::Error>;
@@ -41,6 +42,6 @@ fn find_countries_starting_with(conn: Connection, _query: Query) -> QueryResult 
     LIMIT 100",
     )?;
 
-    stmt.query_map([], |row| Ok(Data::CountryName { name: row.get(0)? }))
+    stmt.query_map([], |row| Ok(Data::Name(row.get(0)?)))
         .and_then(Iterator::collect)
 }

@@ -54,6 +54,6 @@ stop:
 	docker compose down
 
 # cargo watch? - https://actix.rs/docs/autoreload
-.PHONY: run
-run: stop
-	docker compose up -d #cargo run
+.PHONY: start
+start: stop
+	docker compose up -d
