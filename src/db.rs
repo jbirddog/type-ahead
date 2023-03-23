@@ -25,23 +25,25 @@ pub async fn execute(pool: &Pool, query: Query) -> Result<Vec<Data>, Error> {
         .map_err(error::ErrorInternalServerError)?;
 
     web::block(move || match query {
-        // TODO: pass in params from match instead of query
-        Query::CountryNamesStartingWith(_, _) => find_countries_starting_with(conn, query),
+        Query::CountryNamesStartingWith(prefix, limit) => {
+            find_countries_starting_with(conn, prefix, limit)
+        }
     })
     .await?
     .map_err(error::ErrorInternalServerError)
 }
 
-fn find_countries_starting_with(conn: Connection, _query: Query) -> QueryResult {
-    // TODO: bind params from query
+fn find_countries_starting_with(conn: Connection, prefix: String, limit: i32) -> QueryResult {
     let mut stmt = conn.prepare(
         "SELECT name 
     FROM countries
-    WHERE name LIKE 'Un%'
+    WHERE name LIKE ? || '%'
     ORDER BY name
-    LIMIT 100",
+    LIMIT ?",
     )?;
 
-    stmt.query_map([], |row| Ok(Data::Name(row.get(0)?)))
-        .and_then(Iterator::collect)
+    stmt.query_map(rusqlite::params![prefix, limit], |row| {
+        Ok(Data::Name(row.get(0)?))
+    })
+    .and_then(Iterator::collect)
 }

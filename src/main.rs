@@ -1,5 +1,6 @@
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use r2d2_sqlite::{self, SqliteConnectionManager};
+use serde::Deserialize;
 
 // TODO: crate setup
 mod db;
@@ -11,8 +12,18 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello.")
 }
 
-async fn find_countries(db: web::Data<Pool>) -> Result<HttpResponse, actix_web::Error> {
-    let query = db::Query::CountryNamesStartingWith("Un".to_string(), 100);
+#[derive(Deserialize)]
+struct TypeAheadParams {
+    prefix: String,
+    limit: i32,
+}
+
+async fn find_countries(
+    db: web::Data<Pool>,
+    query_params: web::Query<TypeAheadParams>,
+) -> Result<HttpResponse, actix_web::Error> {
+    let query =
+        db::Query::CountryNamesStartingWith(query_params.prefix.to_string(), query_params.limit);
     let result = db::execute(&db, query).await?;
 
     Ok(HttpResponse::Ok().json(result))
