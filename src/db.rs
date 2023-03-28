@@ -15,9 +15,18 @@ pub enum Query {
 #[derive(Debug, Serialize)]
 #[serde(untagged)]
 pub enum Data {
-    Country { name: String },
-    State { name: String, country: String },
-    City { name: String, state: String, country: String },
+    Country {
+        name: String,
+    },
+    State {
+        name: String,
+        country: String,
+    },
+    City {
+        name: String,
+        state: String,
+        country: String,
+    },
 }
 
 type QueryResult = Result<Vec<Data>, rusqlite::Error>;
@@ -76,7 +85,7 @@ fn find_countries_starting_with(conn: Connection, prefix: String, limit: i32) ->
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::Country{ name: row.get(0)? })
+        Ok(Data::Country { name: row.get(0)? })
     })
     .and_then(Iterator::collect)
 }
@@ -91,7 +100,10 @@ fn find_states_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
     )?;
 
     stmt.query_map(rusqlite::params![prefix, limit], |row| {
-        Ok(Data::State{ name: row.get(0)?, country: row.get(1)? })
+        Ok(Data::State {
+            name: row.get(0)?,
+            country: row.get(1)?,
+        })
     })
     .and_then(Iterator::collect)
 }
