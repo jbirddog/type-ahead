@@ -55,7 +55,7 @@ stop:
 
 # cargo watch? - https://actix.rs/docs/autoreload
 .PHONY: start
-start: stop
+start: stop compile
 	docker compose up -d
 
 .PHONY: sim
