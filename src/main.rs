@@ -63,9 +63,11 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             // TODO: build the routes separately
             .service(web::resource("/").route(web::get().to(hello)))
-            .service(web::resource("/cities").route(web::get().to(find_cities_starting_with)))
-            .service(web::resource("/countries").route(web::get().to(find_countries_starting_with)))
-            .service(web::resource("/states").route(web::get().to(find_states_starting_with)))
+	    // TODO: /v1/type-aheads discoverability endpoint
+	    // TODO: can the /v1/type-ahead endpoints be grouped?
+            .service(web::resource("/v1/type-ahead/cities").route(web::get().to(find_cities_starting_with)))
+            .service(web::resource("/v1/type-ahead/countries").route(web::get().to(find_countries_starting_with)))
+            .service(web::resource("/v1/type-ahead/states").route(web::get().to(find_states_starting_with)))
     })
     .bind(("0.0.0.0", 5000))?
     .run()
