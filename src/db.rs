@@ -60,7 +60,7 @@ fn find_cities_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
         "SELECT name, state_name, country_name 
     FROM cities
     WHERE name LIKE ? || '%'
-    ORDER BY name
+    ORDER BY name, state_name, country_name
     LIMIT ?",
     )?;
 
@@ -95,7 +95,7 @@ fn find_states_starting_with(conn: Connection, prefix: String, limit: i32) -> Qu
         "SELECT name, country_name 
     FROM states
     WHERE name LIKE ? || '%'
-    ORDER BY name
+    ORDER BY name, country_name
     LIMIT ?",
     )?;
 
