@@ -7,7 +7,7 @@ def sim(query, limit):
     for c in query:
         prefix += c
         print(f"Finding cities that start with: {prefix}...")
-        response = requests.get(f"http://localhost:5000/cities?prefix={prefix}&limit={limit}")
+        response = requests.get(f"http://localhost:5000/v1/type-ahead/cities?prefix={prefix}&limit={limit}")
         results.append((prefix, response.text))
     print("Processing results...")
     report = []
@@ -15,8 +15,7 @@ def sim(query, limit):
         response = json.loads(raw_response)
         lines = []
         for item in response:
-            names = item["cityStateAndCountryName"]
-            lines.append(f"\t{names[0]} ({names[1]}, {names[2]})")
+            lines.append(f"\t{item['name']} ({item['state']}, {item['country']})")
         report.append(f"{prefix}: {len(response)}")
         report.append("\n".join(lines))
         report.append("")
