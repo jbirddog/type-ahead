@@ -1,6 +1,7 @@
 SRC := type_ahead
 
 DEV_SERVICE := dev
+RELEASE_SERVICE := release
 
 # Not sure if the AS_ME/AS_ROOT stuff is as helpful for rust dev env
 # as it is for python. may just end up nuking it to simplify this some
@@ -13,6 +14,8 @@ AS_ROOT := docker compose run $(DEV_SERVICE)
 .PHONY: all
 all: dev-env
 
+# TODO: merge the deps.Dockerfile and the dev.Dockerfile, split didn't
+# work as well as planned
 .PHONY: deps
 deps:
 	docker build \
@@ -20,6 +23,18 @@ deps:
 		-t type-ahead-deps \
 		--progress=plain \
 		.
+
+.PHONY: release
+release:
+	docker compose build --progress=plain $(RELEASE_SERVICE)
+
+.PHONY: release-shell
+release-shell:
+	docker compose run $(RELEASE_SERVICE) /bin/bash
+
+.PHONY: release-start
+release-start: stop
+	docker compose up -d $(RELEASE_SERVICE)
 
 .PHONY: dev-env
 dev-env: deps
@@ -30,7 +45,7 @@ shell:
 	$(AS_ROOT) /bin/bash
 
 .PHONY: shell-as-me
-shell-as-root:
+shell-as-me:
 	$(AS_ME) /bin/bash
 
 .PHONY: owner-check
@@ -56,7 +71,7 @@ stop:
 # cargo watch? - https://actix.rs/docs/autoreload
 .PHONY: start
 start: stop compile
-	docker compose up -d
+	docker compose up -d $(DEV_SERVICE)
 
 .PHONY: sim
 sim:

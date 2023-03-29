@@ -11,3 +11,12 @@ services:
     volumes:
       - ./src:/type_ahead/src
       - ./target:/type_ahead/target
+  release:
+    container_name: type-ahead-release
+    build:
+      context: .
+      dockerfile: release.Dockerfile
+    command:
+      - "target/release/type_ahead"
+    ports:
+      - 5000:5000/tcp
