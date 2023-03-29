@@ -1,4 +1,4 @@
-FROM type-ahead-deps AS deps
+FROM rust:1-slim-bullseye AS build
 
 RUN rustup component add rustfmt
 
@@ -9,7 +9,14 @@ RUN apt-get update -q && \
 	    make \
     	    sqlite3
 
-FROM deps AS fetch-data
+RUN cargo new type_ahead
+WORKDIR /type_ahead
+
+COPY Cargo.toml Cargo.lock .
+
+RUN cargo build
+
+FROM build AS fetch-data
 
 COPY data/fetch.mk data/fetch.mk
 RUN make -C data -f fetch.mk fetch-data

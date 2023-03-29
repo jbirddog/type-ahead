@@ -14,16 +14,6 @@ AS_ROOT := docker compose run $(DEV_SERVICE)
 .PHONY: all
 all: dev-env
 
-# TODO: merge the deps.Dockerfile and the dev.Dockerfile, split didn't
-# work as well as planned
-.PHONY: deps
-deps:
-	docker build \
-		-f deps.Dockerfile \
-		-t type-ahead-deps \
-		--progress=plain \
-		.
-
 .PHONY: release
 release:
 	docker compose build --progress=plain $(RELEASE_SERVICE)
@@ -37,7 +27,7 @@ release-start: stop
 	docker compose up -d $(RELEASE_SERVICE)
 
 .PHONY: dev-env
-dev-env: deps
+dev-env:
 	docker compose build --progress=plain $(DEV_SERVICE)
 
 .PHONY: shell

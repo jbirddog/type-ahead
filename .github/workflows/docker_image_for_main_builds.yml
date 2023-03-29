@@ -1,37 +1,12 @@
 name: Docker Image For Main Builds
-# we want to be able to sort by tag name to find the newest and trace back to source control
-# on every commit to main:
-#   frontend:main-20230223164322-b8becd1-45
-#   frontend:main-latest
-# we settled on:
-#   main-2023-02-24_16-16-40
-# because the labels on the docker image itself have the git sha and everything else :)
-# on every tag:
-#   frontend:latest
 #
-# Example docker image labels:
-#     "Labels": {
-#       "description": "Software development platform for building, running, and monitoring executable diagrams",
-#       "org.opencontainers.image.created": "2023-02-24T16:43:00.844Z",
-#       "org.opencontainers.image.description": "",
-#       "org.opencontainers.image.licenses": "LGPL-2.1",
-#       "org.opencontainers.image.revision": "54064a050fbf9f366648f0f2e2c60ce244fcc421",
-#       "org.opencontainers.image.source": "https://github.com/sartography/spiff-arena",
-#       "org.opencontainers.image.title": "spiff-arena",
-#       "org.opencontainers.image.url": "https://github.com/sartography/spiff-arena",
-#       "org.opencontainers.image.version": "main-latest",
-#       "source": "https://github.com/sartography/spiff-arena"
-#   }
+# shamelessly copied from https://github.com/sartography/spiff-arena
 #
-# Git tags for an image:
-#   curl -H "Authorization: Bearer $(echo -n $TOKEN | base64 -w0)" https://ghcr.io/v2/sartography/spiffworkflow-backend/tags/list | jq -r '.tags | sort_by(.)'
-
 
 on:
   push:
     branches:
       - main
-      - feature/use_tasks_as_logs
 
 jobs:
   create_type_ahead_dev_docker_image:
