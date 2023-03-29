@@ -67,9 +67,7 @@ jobs:
       - name: Build and push type-ahead-dev Docker image
         uses: docker/build-push-action@v4.0.0
         with:
-          # this action doesn't seem to respect working-directory so set context
-          context: .
-	  dockerfile: dev.Dockerfile
+          dockerfile: dev.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -109,9 +107,7 @@ jobs:
       - name: Build and push type-ahead Docker image
         uses: docker/build-push-action@v4.0.0
         with:
-          # this action doesn't seem to respect working-directory so set context
-          context: .
-	  dockerfile: release.Dockerfile
+          dockerfile: release.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
