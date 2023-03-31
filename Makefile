@@ -35,6 +35,16 @@ lambda-zip: lambda-env
 	docker cp $$TMP_ID:/app/type_ahead/target/lambda/type_ahead/bootstrap.zip bootstrap.zip ;\
 	docker rm -v $$TMP_ID ;\
 
+.PHONY: lambda-scaffolding
+lambda-scaffolding: lambda-env
+	set -e ;\
+	mkdir -p lambda_scaffolding ;\
+	TMP_ID=$$(docker create type-ahead-lambda) ;\
+	docker cp $$TMP_ID:/app/type_ahead/Cargo.toml lambda_scaffolding/Cargo.toml ;\
+	docker cp $$TMP_ID:/app/type_ahead/Cargo.lock lambda_scaffolding/Cargo.lock ;\
+	docker cp $$TMP_ID:/app/type_ahead/src lambda_scaffolding/src ;\
+	docker rm -v $$TMP_ID ;\
+
 .PHONY: release
 release:
 	docker compose build --progress=plain $(RELEASE_SERVICE)
