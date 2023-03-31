@@ -20,3 +20,12 @@ services:
       - "target/release/type_ahead"
     ports:
       - 5000:5000/tcp
+  lambda:
+    container_name: type-ahead-lambda
+    build:
+      context: .
+      dockerfile: lambda.Dockerfile
+    # TODO: just copy/pasting, i doubt these are right
+    #command: /usr/local/cargo/bin/cargo lambda watch
+    ports:
+      - 9000:9000/tcp

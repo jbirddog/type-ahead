@@ -1,6 +1,7 @@
 SRC := type_ahead
 
 DEV_SERVICE := dev
+LAMBDA_SERVICE := lambda
 RELEASE_SERVICE := release
 
 # Not sure if the AS_ME/AS_ROOT stuff is as helpful for rust dev env
@@ -13,6 +14,26 @@ AS_ROOT := docker compose run $(DEV_SERVICE)
 
 .PHONY: all
 all: dev-env
+
+.PHONY: lambda-env
+lambda-env:
+	docker compose build $(LAMBDA_SERVICE)
+
+.PHONY: lambda-shell
+lambda-shell:
+	docker compose run $(LAMBDA_SERVICE) /bin/bash
+
+# TODO: not working for some reason
+#.PHONY: lambda-watch
+#lambda-watch: stop
+#	docker compose run $(LAMBDA_SERVICE) cargo lambda watch
+
+.PHONY: lambda-zip
+lambda-zip: lambda-env
+	set -e ;\
+	TMP_ID=$$(docker create type-ahead-lambda) ;\
+	docker cp $$TMP_ID:/app/type_ahead/target/lambda/type_ahead/bootstrap.zip bootstrap.zip ;\
+	docker rm -v $$TMP_ID ;\
 
 .PHONY: release
 release:
