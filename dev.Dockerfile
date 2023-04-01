@@ -16,13 +16,4 @@ COPY Cargo.toml Cargo.lock .
 
 RUN cargo build
 
-FROM build AS fetch-data
-
-COPY data/fetch.mk data/fetch.mk
-RUN make -C data -f fetch.mk fetch-data
-
-FROM fetch-data AS import-data
-
-COPY data/import.mk data/import.mk
-COPY data/import.sql data/import.sql
-RUN make -C data -f import.mk import-data
+COPY artifacts/data.db data/data.db

@@ -20,7 +20,11 @@ AS_ROOT := docker compose run $(DEV_SERVICE)
 .PHONY: all
 all: dev-env
 
-# TODO: would be nice to have the db as a dependency
+# TODO: clean
+
+# TODO: would be nice to have the db as a dependency, then
+# dev-env, lambda-env can have this as a dependency that
+# doesn't fetch all the time
 .PHONY: data
 data:
 	docker compose run --build -u $(ME) $(DATA_SERVICE) 

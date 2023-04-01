@@ -9,3 +9,4 @@
 1. Add unit tests for db lib
 1. Add integration tests, run same cases against actix/lambda frontends
    1. https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-invoke.html
+1. Look at moving actix images to alpine like the lambda one
