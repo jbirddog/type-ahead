@@ -1,13 +1,9 @@
-FROM calavera/cargo-lambda AS base
+FROM rust:1-alpine AS base
+
+RUN apk add -U musl-dev
 
 WORKDIR /app
 
-RUN cargo lambda new --http --http-feature=apigw_http type_ahead
+COPY lambda_scaffolding/ ./
 
-WORKDIR /app/type_ahead
-
-#COPY lambda/Cargo.* .
-
-RUN cargo lambda build --release --output-format zip
-
-#CMD ["cargo", "lambda", "watch"]
+RUN cargo build

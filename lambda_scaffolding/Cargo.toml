@@ -2,6 +2,7 @@
 name = "type_ahead"
 version = "0.1.0"
 edition = "2021"
+autobins = false
 
 # Starting in Rust 1.62 you can use `cargo add` to add dependencies 
 # to your project.
@@ -21,3 +22,6 @@ tokio = { version = "1", features = ["macros"] }
 tracing = { version = "0.1", features = ["log"] }
 tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"] }
 
+[[bin]]
+name = "bootstrap"
+path = "src/main.rs"

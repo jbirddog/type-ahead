@@ -21,7 +21,7 @@ lambda-env:
 
 .PHONY: lambda-shell
 lambda-shell:
-	docker compose run $(LAMBDA_SERVICE) /bin/bash
+	docker compose run $(LAMBDA_SERVICE) /bin/sh
 
 # TODO: not working for some reason
 #.PHONY: lambda-watch
