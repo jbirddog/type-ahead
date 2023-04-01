@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY lambda_scaffolding/ ./
 
-RUN cargo build
+RUN cargo build --release

@@ -28,12 +28,15 @@ lambda-shell:
 #lambda-watch: stop
 #	docker compose run $(LAMBDA_SERVICE) cargo lambda watch
 
+# TODO have the image contain this zip
 .PHONY: lambda-zip
 lambda-zip: lambda-env
 	set -e ;\
 	TMP_ID=$$(docker create type-ahead-lambda) ;\
-	docker cp $$TMP_ID:/app/type_ahead/target/lambda/type_ahead/bootstrap.zip bootstrap.zip ;\
+	docker cp $$TMP_ID:/app/target/release/bootstrap bootstrap ;\
 	docker rm -v $$TMP_ID ;\
+	zip bootstrap.zip bootstrap ;\
+	rm bootstrap ;\
 
 .PHONY: lambda-scaffolding
 lambda-scaffolding: lambda-env
