@@ -1,4 +1,11 @@
 services:
+  data:
+    container_name: type-ahead-data
+    build:
+      context: data
+      dockerfile: Dockerfile
+    volumes:
+      - ${PWD}/artifacts:/artifacts
   dev:
     container_name: type-ahead-dev
     build:
