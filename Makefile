@@ -22,15 +22,12 @@ all: dev-env
 
 # TODO: clean
 
-# TODO: would be nice to have the db as a dependency, then
-# dev-env, lambda-env can have this as a dependency that
-# doesn't fetch all the time
 .PHONY: data
 data:
 	docker compose run --build -u $(ME) $(DATA_SERVICE) 
 
 .PHONY: lambda-env
-lambda-env:
+lambda-env: data
 	docker compose build $(LAMBDA_SERVICE)
 
 .PHONY: lambda-shell
@@ -63,7 +60,7 @@ lambda-scaffolding: lambda-env
 	docker rm -v $$TMP_ID ;\
 
 .PHONY: release
-release:
+release: data
 	docker compose build --progress=plain $(RELEASE_SERVICE)
 
 .PHONY: release-shell
@@ -75,7 +72,7 @@ release-start: stop
 	docker compose up -d $(RELEASE_SERVICE)
 
 .PHONY: dev-env
-dev-env:
+dev-env: data
 	docker compose build --progress=plain $(DEV_SERVICE)
 
 .PHONY: shell

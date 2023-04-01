@@ -9,7 +9,8 @@ artifact:
 # fetching
 #
 
-DATA_URL_BASE := https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/csv/
+DATA_SHA := 006dd271a0ce1189157ddeb7d750b48dbecfe06c
+DATA_URL_BASE := https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/$(DATA_SHA)/csv/
 
 DATA_DIR := csv/
 
