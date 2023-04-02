@@ -5,8 +5,11 @@ name: Data Image
 
 on:
   push:
-    branches: ['main', 'separate_data']
+    branches: ['main']
     paths: ['data/**']
+  pull_request:
+    paths: ['data/**']
+
 
 jobs:
   create_type_ahead_data_image:
