@@ -8,4 +8,7 @@
 1. Add unit tests for db lib
 1. Add integration tests, run same cases against actix/lambda frontends
    1. https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-invoke.html
-1. Look at moving actix images to alpine like the lambda one
+1. Look at moving actix/lambda images to alpine like the lambda one
+1. Split out the docker-compose.yml file
+1. Create a job to build the data container, use it as a build stage in dev/release
+1. Rename dev to debug, copy the files in and use volumes as dev container
