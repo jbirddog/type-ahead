@@ -12,3 +12,5 @@
 1. Split out the docker-compose.yml file
 1. Create a job to build the data container, use it as a build stage in dev/release
 1. Rename dev to debug, copy the files in and use volumes as dev container
+1. Split out the docker image builds, build on pr, etc like the data image
+1. Custom action?
