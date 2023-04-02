@@ -43,7 +43,7 @@ jobs:
         name: Build and push type-ahead-data Docker image
         uses: docker/build-push-action@v4.0.0
         with:
-          #context: data
+          context: data
           file: data/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
