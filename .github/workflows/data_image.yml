@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: jbirddog/type-ahead-data
+      IMAGE_NAME: ${{ github.action_repository }}-data
     permissions:
       contents: read
       packages: write
