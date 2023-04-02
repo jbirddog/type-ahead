@@ -1,3 +1,5 @@
+#FROM ghcr.io/jbirddog/type-ahead-data:pr-1 AS data
+
 FROM rust:1-slim-bullseye AS build
 
 RUN rustup component add rustfmt
@@ -16,4 +18,4 @@ COPY Cargo.toml Cargo.lock .
 
 RUN cargo build
 
-COPY artifacts/data.db data/data.db
+#COPY --from=data data/data.db data/data.db
