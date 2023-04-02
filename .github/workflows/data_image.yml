@@ -38,7 +38,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       -
-        name: Docker image type-ahead-data
+        name: Docker image ${{ env.IMAGE_NAME }}
         uses: docker/build-push-action@v4.0.0
         with:
           context: data
