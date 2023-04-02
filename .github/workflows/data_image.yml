@@ -20,7 +20,7 @@ jobs:
       packages: write
     steps:
       -
-        #name: Check out the repository
+        name: Check out the repository
         uses: actions/checkout@v3.3.0
       -
         name: Log in to the Container registry
@@ -38,7 +38,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       -
-        name: Build and push type-ahead-data Docker image
+        name: Docker image: type-ahead-data
         uses: docker/build-push-action@v4.0.0
         with:
           context: data
@@ -47,6 +47,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       -
-        name: Adding markdown
+        name: List tags
         if: github.event_name != 'pull_request'
         run: echo 'TAGS ${{ steps.meta.outputs.tags }}' >> "$GITHUB_STEP_SUMMARY"
