@@ -14,3 +14,5 @@
 1. Rename dev to debug, copy the files in and use volumes as dev container
 1. Split out the docker image builds, build on pr, etc like the data image
 1. Custom action?
+1. Look at tagging images so the docker file can use local or pulled from ghcr.io
+   1. How does this work with actions?

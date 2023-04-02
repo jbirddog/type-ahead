@@ -18,6 +18,11 @@ services:
     volumes:
       - ./src:/type_ahead/src
       - ./target:/type_ahead/target
+  debug:
+    container_name: type-ahead-debug
+    build:
+      context: .
+      dockerfile: debug.Dockerfile
   release:
     container_name: type-ahead-release
     build:

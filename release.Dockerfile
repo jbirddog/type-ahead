@@ -4,16 +4,9 @@ WORKDIR /type_ahead
 
 RUN apt-get update -q && \
     apt-get install -y -q \
-    	    curl \
-	    libsqlite3-dev \
-	    make \
-    	    sqlite3
+	    libsqlite3-dev
 
 COPY Cargo.toml Cargo.lock .
 COPY src/ src/
 
 RUN cargo build --release
-
-COPY artifacts/data.db data/data.db
-
-# TODO: copy binary and database into final image
