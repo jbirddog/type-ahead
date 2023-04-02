@@ -15,9 +15,9 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}-data
-    permissions:
-      contents: read
-      packages: write
+    #permissions:
+    #  contents: read
+    #  packages: write
     steps:
       -
         name: Check out the repository
