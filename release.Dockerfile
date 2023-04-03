@@ -2,7 +2,7 @@ FROM ghcr.io/jbirddog/type-ahead-data:pr-1 AS data
 
 FROM rust:1-slim-bullseye AS build
 
-WORKDIR /type_ahead
+WORKDIR /app
 
 RUN apt-get update -q && \
     apt-get install -y -q \
