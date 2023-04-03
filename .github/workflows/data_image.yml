@@ -43,10 +43,10 @@ jobs:
         with:
           context: data
           file: data/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       -
         name: List tags
-        if: github.event_name != 'pull_request'
+        #if: github.event_name != 'pull_request'
         run: echo 'TAGS ${{ steps.meta.outputs.tags }}' >> "$GITHUB_STEP_SUMMARY"
