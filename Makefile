@@ -27,7 +27,7 @@ data:
 	docker compose build $(DATA_SERVICE) 
 
 .PHONY: lambda-env
-lambda-env: data
+lambda-env:
 	docker compose build $(LAMBDA_SERVICE)
 
 .PHONY: lambda-shell
@@ -60,7 +60,7 @@ lambda-scaffolding: lambda-env
 	docker rm -v $$TMP_ID ;\
 
 .PHONY: release
-release: data
+release:
 	docker compose build --progress=plain $(RELEASE_SERVICE)
 
 .PHONY: release-shell
@@ -77,7 +77,7 @@ dev-env:
 
 .PHONY: shell
 shell:
-	$(AS_ROOT) /bin/sh
+	$(AS_ROOT) /bin/bash
 
 .PHONY: shell-as-me
 shell-as-me:
