@@ -1,4 +1,16 @@
-DATA_URL_BASE := https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/csv/
+.PHONY: data
+data: fetch-data import-data
+
+.PHONY: artifact
+artifact:
+	cp $(DB_NAME) ../artifacts/
+
+#
+# fetching
+#
+
+DATA_SHA := 006dd271a0ce1189157ddeb7d750b48dbecfe06c
+DATA_URL_BASE := https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/$(DATA_SHA)/csv/
 
 DATA_DIR := csv/
 
@@ -28,3 +40,14 @@ fetch-countries:
 
 .PHONY: fetch-data
 fetch-data: fetch-cities fetch-states fetch-countries
+
+#
+# importing
+#
+
+DB_NAME := data.db
+
+.PHONY: import-data
+import-data:
+	sqlite3 $(DB_NAME) < import.sql
+

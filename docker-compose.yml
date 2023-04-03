@@ -1,4 +1,9 @@
 services:
+  data:
+    container_name: type-ahead-data
+    build:
+      context: data
+      dockerfile: Dockerfile
   dev:
     container_name: type-ahead-dev
     build:
@@ -11,6 +16,23 @@ services:
     volumes:
       - ./src:/type_ahead/src
       - ./target:/type_ahead/target
+  dev2:
+    container_name: type-ahead-dev2
+    build:
+      context: .
+      dockerfile: dev2.Dockerfile
+    command:
+      - "target/debug/type_ahead"
+    ports:
+      - 5000:5000/tcp
+    volumes:
+      - ./src:/app/src
+      #- ./target:/app/target
+  debug:
+    container_name: type-ahead-debug
+    build:
+      context: .
+      dockerfile: debug.Dockerfile
   release:
     container_name: type-ahead-release
     build:

@@ -1,11 +1,16 @@
+#
+# still figuring out how I want this all laid out, so in flux.
+#  - need to simplify some: https://nullprogram.com/blog/2020/01/22/
+#  - make shell and make SERVICE=dev shell or make shell-dev?
+#
+
 SRC := type_ahead
 
+DATA_SERVICE := data
 DEV_SERVICE := dev
 LAMBDA_SERVICE := lambda
 RELEASE_SERVICE := release
 
-# Not sure if the AS_ME/AS_ROOT stuff is as helpful for rust dev env
-# as it is for python. may just end up nuking it to simplify this some
 MY_USER := $(shell id -u)
 MY_GROUP := $(shell id -g)
 ME := $(MY_USER):$(MY_GROUP)
@@ -14,6 +19,12 @@ AS_ROOT := docker compose run $(DEV_SERVICE)
 
 .PHONY: all
 all: dev-env
+
+# TODO: clean
+
+.PHONY: data
+data:
+	docker compose build $(DATA_SERVICE) 
 
 .PHONY: lambda-env
 lambda-env:
