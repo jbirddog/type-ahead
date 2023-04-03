@@ -1,6 +1,8 @@
 .PHONY: data
 data: fetch-data import-data
 
+# REMOVE ME
+
 .PHONY: artifact
 artifact:
 	cp $(DB_NAME) ../artifacts/

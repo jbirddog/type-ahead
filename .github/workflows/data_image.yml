@@ -15,13 +15,15 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}-data
+    permissions:
+      contents: read
+      packages: write
     steps:
       -
         name: Check out the repository
         uses: actions/checkout@v3.3.0
       -
         name: Log in to the Container registry
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v2.1.0
         with:
           registry: ${{ env.REGISTRY }}
@@ -40,10 +42,9 @@ jobs:
         with:
           context: data
           file: data/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       -
         name: List tags
-        if: github.event_name != 'pull_request'
         run: echo 'TAGS ${{ steps.meta.outputs.tags }}' >> "$GITHUB_STEP_SUMMARY"
