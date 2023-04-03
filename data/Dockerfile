@@ -1,6 +1,5 @@
 FROM alpine AS build
 
-RUN mkdir /artifacts
 WORKDIR /app
 
 RUN apk add -U --no-cache \
@@ -11,5 +10,3 @@ RUN apk add -U --no-cache \
 COPY Makefile import.sql .
 
 RUN make
-
-CMD ["make", "artifact"] 

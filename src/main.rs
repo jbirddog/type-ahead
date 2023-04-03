@@ -9,7 +9,7 @@ use db::Pool;
 // TODO move the handlers out
 async fn hello() -> impl Responder {
     // TODO: load demo index.html page
-    HttpResponse::Ok().body("Hello.")
+    HttpResponse::Ok().body("Hello there.")
 }
 
 #[derive(Deserialize)]

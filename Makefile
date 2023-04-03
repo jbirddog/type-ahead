@@ -24,7 +24,7 @@ all: dev-env
 
 .PHONY: data
 data:
-	docker compose run --build -u $(ME) $(DATA_SERVICE) 
+	docker compose build $(DATA_SERVICE) 
 
 .PHONY: lambda-env
 lambda-env: data
@@ -72,12 +72,12 @@ release-start: stop
 	docker compose up -d $(RELEASE_SERVICE)
 
 .PHONY: dev-env
-dev-env: data
+dev-env:
 	docker compose build --progress=plain $(DEV_SERVICE)
 
 .PHONY: shell
 shell:
-	$(AS_ROOT) /bin/bash
+	$(AS_ROOT) /bin/sh
 
 .PHONY: shell-as-me
 shell-as-me:
