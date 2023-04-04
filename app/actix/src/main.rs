@@ -9,7 +9,7 @@ use db::Pool;
 // TODO move the handlers out
 async fn hello() -> impl Responder {
     // TODO: load demo index.html page
-    HttpResponse::Ok().body("Hello there.")
+    HttpResponse::Ok().body("Hello there...")
 }
 
 #[derive(Deserialize)]
@@ -55,7 +55,7 @@ async fn find_states_starting_with(
 async fn main() -> std::io::Result<()> {
     // TODO: config all the things
     // TODO: logging
-    let manager = SqliteConnectionManager::file("data/data.db");
+    let manager = SqliteConnectionManager::file("../artifacts/data.db");
     let pool = Pool::new(manager).unwrap();
 
     HttpServer::new(move || {

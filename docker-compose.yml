@@ -10,12 +10,11 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     command:
-      - "target/debug/type_ahead"
+      - "/app/target/debug/type_ahead"
     ports:
       - 5000:5000/tcp
     volumes:
-      - ./src:/type_ahead/src
-      - ./target:/type_ahead/target
+      - ./app:/app
   dev2:
     container_name: type-ahead-dev2
     build:
