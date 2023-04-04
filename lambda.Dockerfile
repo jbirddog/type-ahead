@@ -4,7 +4,8 @@ FROM rust:1-alpine AS build
 
 RUN apk -U add \
     musl-dev \
-    sqlite-dev
+    sqlite-dev \
+    zip
 
 WORKDIR /app
 
@@ -17,5 +18,7 @@ RUN cargo build -p type_ahead_lambda --release
 WORKDIR /artifacts
 
 COPY --from=data /app/data.db data.db
+RUN cp ../app/target/release/bootstrap .
+RUN zip bootstrap.zip bootstrap data.db
 
 WORKDIR /app

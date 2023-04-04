@@ -1,6 +1,7 @@
 use lambda_http::{run, service_fn, Body, Error, Request, RequestExt, Response};
+use r2d2_sqlite::{self, SqliteConnectionManager};
 
-use type_ahead_db::{Query};
+use type_ahead_db::{execute, Pool, Query};
 
 /// This is the main body for the function.
 /// Write your code inside it.
@@ -9,12 +10,20 @@ use type_ahead_db::{Query};
 async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
     // Extract some useful information from the request
 
+    let manager = SqliteConnectionManager::file("data.db");
+    let pool = Pool::new(manager).unwrap();
+    let conn = pool.get().unwrap();
+    
+    let query = Query::CityNamesStartingWith("marie".to_string(), 100);
+
+    let _response = execute(conn, query).unwrap();
+
     // Return something that implements IntoResponse.
     // It will be serialized to the right response event automatically by the runtime
     let resp = Response::builder()
         .status(200)
-        .header("content-type", "text/html")
-        .body("Hello AWS Lambda HTTP request (rust)".into())
+        .header("content-type", "application/json")
+        .body("{\"msg\": \"Hello AWS Lambda HTTP request (rust)\"}".into())
         .map_err(Box::new)?;
     Ok(resp)
 }
@@ -23,9 +32,7 @@ async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::INFO)
-        // disable printing the name of the module in every log line.
         .with_target(false)
-        // disabling time is handy because CloudWatch will add the ingestion time.
         .without_time()
         .init();
 

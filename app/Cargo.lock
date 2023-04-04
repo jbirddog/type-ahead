@@ -1499,6 +1499,10 @@ version = "0.1.0"
 dependencies = [
  "lambda_http",
  "lambda_runtime",
+ "r2d2",
+ "r2d2_sqlite",
+ "rusqlite",
+ "serde",
  "tokio",
  "tracing",
  "tracing-subscriber",
