@@ -48,5 +48,5 @@ services:
       dockerfile: lambda.Dockerfile
     # TODO: just copy/pasting, i doubt these are right
     #command: /usr/local/cargo/bin/cargo lambda watch
-    ports:
-      - 9000:9000/tcp
+    #ports:
+    #  - 9000:9000/tcp

@@ -3,4 +3,5 @@
 members = [
 	"actix",
 	"db",
+	"lambda",
 ]

@@ -1,5 +1,7 @@
 use lambda_http::{run, service_fn, Body, Error, Request, RequestExt, Response};
 
+use type_ahead_db::{Query};
+
 /// This is the main body for the function.
 /// Write your code inside it.
 /// There are some code example in the following URLs:
@@ -12,7 +14,7 @@ async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
     let resp = Response::builder()
         .status(200)
         .header("content-type", "text/html")
-        .body("Hello AWS Lambda HTTP request".into())
+        .body("Hello AWS Lambda HTTP request (rust)".into())
         .map_err(Box::new)?;
     Ok(resp)
 }
