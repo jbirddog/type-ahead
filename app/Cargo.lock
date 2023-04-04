@@ -1111,6 +1111,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "type_ahead_db"
+version = "0.1.0"
+dependencies = [
+ "r2d2",
+ "r2d2_sqlite",
+ "rusqlite",
+ "serde",
+]
+
+[[package]]
 name = "typenum"
 version = "1.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
