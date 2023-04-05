@@ -4,6 +4,7 @@ services:
     build:
       context: data
       dockerfile: Dockerfile
+  
   dev:
     container_name: type-ahead-dev
     build:
@@ -15,6 +16,7 @@ services:
       - 5000:5000/tcp
     volumes:
       - ./app:/app
+
   release:
     container_name: type-ahead-release
     build:
@@ -24,6 +26,16 @@ services:
       - "/app/target/release/type_ahead"
     ports:
       - 5000:5000/tcp
+  
+  lambda:
+    container_name: type-ahead-lambda
+    build:
+      context: .
+      dockerfile: lambda.Dockerfile
+    # TODO: just copy/pasting, i doubt these are right
+    command: "/usr/local/cargo/bin/cargo lambda watch"
+    ports:
+      - 9000:9000/tcp
   
   #dev2:
   #  container_name: type-ahead-dev2
@@ -42,12 +54,3 @@ services:
   #  build:
   #    context: .
   #    dockerfile: debug.Dockerfile
-  #lambda:
-  #  container_name: type-ahead-lambda
-  #  build:
-  #    context: .
-  #    dockerfile: lambda.Dockerfile
-  #  # TODO: just copy/pasting, i doubt these are right
-  #  #command: /usr/local/cargo/bin/cargo lambda watch
-  #  #ports:
-  #  #  - 9000:9000/tcp

@@ -6,5 +6,5 @@ edition = "2021"
 [dependencies]
 r2d2 = "0.8"
 r2d2_sqlite = "0.21"
-rusqlite = "0.28"
+rusqlite = { version = "0.28", features = ["bundled"] }
 serde = { version = "1", features = ["derive"]}

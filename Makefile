@@ -26,13 +26,13 @@ all: dev-env
 data:
 	docker compose build $(DATA_SERVICE) 
 
-.PHONY: lambda-env
-lambda-env:
+.PHONY: lambda
+lambda:
 	docker compose build $(LAMBDA_SERVICE)
 
 .PHONY: lambda-shell
 lambda-shell:
-	docker compose run $(LAMBDA_SERVICE) /bin/sh
+	docker compose run $(LAMBDA_SERVICE) /bin/bash
 
 # TODO: not working for some reason
 #.PHONY: lambda-watch
@@ -40,7 +40,7 @@ lambda-shell:
 #	docker compose run $(LAMBDA_SERVICE) cargo lambda watch
 
 .PHONY: lambda-zip
-lambda-zip: lambda-env
+lambda-zip: lambda
 	set -e ;\
 	TMP_ID=$$(docker create type-ahead-lambda) ;\
 	docker cp $$TMP_ID:/artifacts/bootstrap.zip artifacts/bootstrap.zip ;\
