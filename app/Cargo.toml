@@ -4,6 +4,5 @@ members = [
 	"actix",
 	"data",
 	"db",
+	"lambda",
 ]
-
-exclude = ["lambda"]
