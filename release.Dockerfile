@@ -14,11 +14,7 @@ COPY app/ ./
 
 RUN cargo build --release
 
-#FROM gcr.io/distroless/cc-debian11 AS final
-
-#COPY --from=build /app/target/release/type_ahead /app/target/release/type_ahead
-
-FROM deps AS final
+FROM gcr.io/distroless/cc-debian11 AS final
 
 COPY --from=build /app/target/release/type_ahead /app/target/release/type_ahead
 
