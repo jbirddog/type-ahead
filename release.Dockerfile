@@ -12,8 +12,14 @@ COPY app/ ./
 
 RUN cargo build --release
 
+#FROM gcr.io/distroless/cc-debian11 AS final
+
+#COPY --from=build /app/target/release/type_ahead /app/target/release/type_ahead
+
 WORKDIR /artifacts
 
 COPY --from=data /app/data.db data.db
 
 WORKDIR /app
+
+CMD ["/app/target/release/type_ahead"]
