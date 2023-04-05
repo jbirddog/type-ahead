@@ -16,3 +16,4 @@
    1. How does this work with actions?
 1. sqlite use with distroless
 1. criterion benchmarking for data_layer vs current sqlite
+1. Move r2d2/rusqlite out of the frontends so they only exist in db/data_layer
