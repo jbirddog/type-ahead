@@ -1,8 +1,5 @@
 # TODOs
 
-1. Confirm the db can be placed in the zip and read in the lambda
-   1. - crashes when trying to interact with sqlite
-   1. - same issues with using distroless for a release
 1. Replace the embedded shell scripts in the Makefile with the trick used to get the db
 1. Add unit tests for db lib
 1. Add integration tests, run same cases against actix/lambda frontends

@@ -16,14 +16,15 @@ async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
 
     let query = Query::CityNamesStartingWith("marie".to_string(), 100);
 
-    let _response = execute(conn, query).unwrap();
+    let response = execute(conn, query).unwrap();
+    let response_str = serde_json::to_string(&response).unwrap();
 
     // Return something that implements IntoResponse.
     // It will be serialized to the right response event automatically by the runtime
     let resp = Response::builder()
         .status(200)
         .header("content-type", "application/json")
-        .body("{\"msg\": \"Hello AWS Lambda HTTP request (rust)\"}".into())
+        .body(response_str.into())
         .map_err(Box::new)?;
     Ok(resp)
 }
