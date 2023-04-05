@@ -15,6 +15,16 @@ services:
       - 5000:5000/tcp
     volumes:
       - ./app:/app
+  release:
+    container_name: type-ahead-release
+    build:
+      context: .
+      dockerfile: release.Dockerfile
+    command:
+      - "/app/target/release/type_ahead"
+    ports:
+      - 5000:5000/tcp
+  
   #dev2:
   #  container_name: type-ahead-dev2
   #  build:
@@ -32,15 +42,6 @@ services:
   #  build:
   #    context: .
   #    dockerfile: debug.Dockerfile
-  #release:
-  #  container_name: type-ahead-release
-  #  build:
-  #    context: .
-  #    dockerfile: release.Dockerfile
-  #  command:
-  #    - "target/release/type_ahead"
-  #  ports:
-  #    - 5000:5000/tcp
   #lambda:
   #  container_name: type-ahead-lambda
   #  build:
