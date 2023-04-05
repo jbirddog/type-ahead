@@ -1,4 +1,4 @@
-use lambda_http::{run, service_fn, Body, Error, Request, RequestExt, Response};
+use lambda_http::{run, service_fn, Body, Error, Request, Response}; //, RequestExt
 use r2d2_sqlite::{self, SqliteConnectionManager};
 
 use type_ahead_db::{execute, Pool, Query};
@@ -13,7 +13,7 @@ async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
     let manager = SqliteConnectionManager::file("data.db");
     let pool = Pool::new(manager).unwrap();
     let conn = pool.get().unwrap();
-    
+
     let query = Query::CityNamesStartingWith("marie".to_string(), 100);
 
     let _response = execute(conn, query).unwrap();

@@ -80,6 +80,11 @@ shell:
 shell-as-me:
 	$(AS_ME) /bin/bash
 
+.PHONY: new-lib
+new-lib:
+	$(AS_ME) cargo new $(NAME) --lib
+	rm -rf app/$(NAME)/.git
+
 .PHONY: owner-check
 owner-check:
 	find . ! -user $(MY_USER) ! -group $(MY_GROUP)

@@ -2,6 +2,7 @@
 
 members = [
 	"actix",
+	"data",
 	"db",
 	"lambda",
 ]
