@@ -1,6 +1,22 @@
-FROM type-ahead-data AS data
-FROM type-ahead-debug AS debug
+FROM ghcr.io/jbirddog/type-ahead-data:main AS data
 
-COPY --from=data /app/data.db data/data.db
+FROM rust:1-alpine AS build
 
- #ghcr.io/jbirddog/type-ahead-data:pr-1 AS data
+RUN apk -U add \
+    musl-dev \
+    sqlite-dev
+
+RUN rustup component add rustfmt
+
+WORKDIR /app
+
+COPY app/ ./
+
+ENV PKG_CONFIG_ALLOW_CROSS=1
+RUN cargo build --target x86_64-unknown-linux-musl
+
+WORKDIR /artifacts
+
+COPY --from=data /app/data.db data.db
+
+WORKDIR /app

@@ -3,9 +3,9 @@ name = "type_ahead"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+type_ahead_db = { path = "../db" }
+
 actix-web = "4"
 r2d2 = "0.8"
 r2d2_sqlite = "0.21"

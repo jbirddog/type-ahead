@@ -1,4 +1,3 @@
-use actix_web::{error, web, Error};
 use serde::Serialize;
 
 pub type Connection = r2d2::PooledConnection<r2d2_sqlite::SqliteConnectionManager>;
@@ -31,14 +30,8 @@ pub enum Data {
 
 type QueryResult = Result<Vec<Data>, rusqlite::Error>;
 
-pub async fn execute(pool: &Pool, query: Query) -> Result<Vec<Data>, Error> {
-    let pool = pool.clone();
-
-    let conn = web::block(move || pool.get())
-        .await?
-        .map_err(error::ErrorInternalServerError)?;
-
-    web::block(move || match query {
+pub fn execute(conn: Connection, query: Query) -> QueryResult {
+    match query {
         Query::CityNamesStartingWith(prefix, limit) => {
             find_cities_starting_with(conn, prefix, limit)
         }
@@ -50,9 +43,7 @@ pub async fn execute(pool: &Pool, query: Query) -> Result<Vec<Data>, Error> {
         Query::StateNamesStartingWith(prefix, limit) => {
             find_states_starting_with(conn, prefix, limit)
         }
-    })
-    .await?
-    .map_err(error::ErrorInternalServerError)
+    }
 }
 
 fn find_cities_starting_with(conn: Connection, prefix: String, limit: i32) -> QueryResult {

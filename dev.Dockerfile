@@ -1,8 +1,6 @@
-FROM ghcr.io/jbirddog/type-ahead-data:pr-1 AS data
+FROM ghcr.io/jbirddog/type-ahead-data:main AS data
 
 FROM rust:1-slim-bullseye AS build
-
-WORKDIR /app
 
 RUN apt-get update -q && \
     apt-get install -y -q \
@@ -10,9 +8,14 @@ RUN apt-get update -q && \
 
 RUN rustup component add rustfmt
 
-COPY Cargo.toml Cargo.lock .
-COPY src/ src/
+WORKDIR /app
+
+COPY app/ ./
 
 RUN cargo build
 
-COPY --from=data /app/data.db data/data.db
+WORKDIR /artifacts
+
+COPY --from=data /app/data.db data.db
+
+WORKDIR /app

@@ -39,15 +39,12 @@ lambda-shell:
 #lambda-watch: stop
 #	docker compose run $(LAMBDA_SERVICE) cargo lambda watch
 
-# TODO have the image contain this zip
 .PHONY: lambda-zip
 lambda-zip: lambda-env
 	set -e ;\
 	TMP_ID=$$(docker create type-ahead-lambda) ;\
-	docker cp $$TMP_ID:/app/target/release/bootstrap bootstrap ;\
+	docker cp $$TMP_ID:/artifacts/bootstrap.zip artifacts/bootstrap.zip ;\
 	docker rm -v $$TMP_ID ;\
-	zip bootstrap.zip bootstrap ;\
-	rm bootstrap ;\
 
 .PHONY: lambda-scaffolding
 lambda-scaffolding: lambda-env
@@ -82,6 +79,11 @@ shell:
 .PHONY: shell-as-me
 shell-as-me:
 	$(AS_ME) /bin/bash
+
+.PHONY: new-lib
+new-lib:
+	$(AS_ME) cargo new $(NAME) --lib
+	rm -rf app/$(NAME)/.git
 
 .PHONY: owner-check
 owner-check:

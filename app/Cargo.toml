@@ -1,0 +1,9 @@
+[workspace]
+
+members = [
+	"actix",
+	"data",
+	"db",
+]
+
+exclude = ["lambda"]
