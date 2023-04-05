@@ -15,38 +15,38 @@ services:
       - 5000:5000/tcp
     volumes:
       - ./app:/app
-  dev2:
-    container_name: type-ahead-dev2
-    build:
-      context: .
-      dockerfile: dev2.Dockerfile
-    command:
-      - "/app/target/debug/type_ahead"
-    ports:
-      - 5000:5000/tcp
-    #volumes:
-    #  - ./src:/app/src
-    #  #- ./target:/app/target
-  debug:
-    container_name: type-ahead-debug
-    build:
-      context: .
-      dockerfile: debug.Dockerfile
-  release:
-    container_name: type-ahead-release
-    build:
-      context: .
-      dockerfile: release.Dockerfile
-    command:
-      - "target/release/type_ahead"
-    ports:
-      - 5000:5000/tcp
-  lambda:
-    container_name: type-ahead-lambda
-    build:
-      context: .
-      dockerfile: lambda.Dockerfile
-    # TODO: just copy/pasting, i doubt these are right
-    #command: /usr/local/cargo/bin/cargo lambda watch
-    #ports:
-    #  - 9000:9000/tcp
+  #dev2:
+  #  container_name: type-ahead-dev2
+  #  build:
+  #    context: .
+  #    dockerfile: dev2.Dockerfile
+  #  command:
+  #    - "/app/target/debug/type_ahead"
+  #  ports:
+  #    - 5000:5000/tcp
+  #  #volumes:
+  #  #  - ./src:/app/src
+  #  #  #- ./target:/app/target
+  #debug:
+  #  container_name: type-ahead-debug
+  #  build:
+  #    context: .
+  #    dockerfile: debug.Dockerfile
+  #release:
+  #  container_name: type-ahead-release
+  #  build:
+  #    context: .
+  #    dockerfile: release.Dockerfile
+  #  command:
+  #    - "target/release/type_ahead"
+  #  ports:
+  #    - 5000:5000/tcp
+  #lambda:
+  #  container_name: type-ahead-lambda
+  #  build:
+  #    context: .
+  #    dockerfile: lambda.Dockerfile
+  #  # TODO: just copy/pasting, i doubt these are right
+  #  #command: /usr/local/cargo/bin/cargo lambda watch
+  #  #ports:
+  #  #  - 9000:9000/tcp
