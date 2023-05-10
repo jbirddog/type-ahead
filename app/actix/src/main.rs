@@ -1,5 +1,6 @@
 use actix_web::middleware::Logger;
 use actix_web::{error, web, App, HttpResponse, HttpServer, Responder};
+use env_logger;
 use r2d2_sqlite::{self, SqliteConnectionManager};
 use serde::Deserialize;
 
@@ -60,6 +61,8 @@ async fn find_states_starting_with(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
+
     let host = config::host();
     let port = config::port();
 
