@@ -19,9 +19,9 @@ fn query_for_request(event: Request) -> Option<Query> {
         .unwrap();
 
     match event.raw_http_path().as_str() {
-        "/v1/type-ahead/cities" => Some(Query::CityNamesStartingWith(prefix, limit)),
-        "/v1/type-ahead/states" => Some(Query::StateNamesStartingWith(prefix, limit)),
-        "/v1/type-ahead/countries" => Some(Query::CountryNamesStartingWith(prefix, limit)),
+        "/v1/typeahead/cities" => Some(Query::CityNamesStartingWith(prefix, limit)),
+        "/v1/typeahead/states" => Some(Query::StateNamesStartingWith(prefix, limit)),
+        "/v1/typeahead/countries" => Some(Query::CountryNamesStartingWith(prefix, limit)),
         &_ => None,
     }
 }

@@ -10,7 +10,7 @@ def sim(query, limit):
         prefix += c
         print(f"Finding cities that start with: {prefix}...")
         start = time.time()
-        response = requests.get(f"http://localhost:5000/v1/type-ahead/cities?prefix={prefix}&limit={limit}")
+        response = requests.get(f"http://localhost:5000/v1/typeahead/cities?prefix={prefix}&limit={limit}")
         end = time.time()
         results.append((prefix, response.text))
         times.append(end - start)
@@ -31,7 +31,7 @@ def sim(query, limit):
     
 
 if __name__ == "__main__":
-    print("Enter city name to simulate type-ahead for: ")
+    print("Enter city name to simulate typeahead for: ")
     query = input()
     limit = 100
     sim(query, limit)

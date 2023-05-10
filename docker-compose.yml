@@ -1,24 +1,26 @@
 services:
   data:
-    container_name: type-ahead-data
+    container_name: typeahead-data
     build:
       context: data
       dockerfile: Dockerfile
   
   dev:
-    container_name: type-ahead-dev
+    container_name: typeahead-dev
     build:
       context: .
       dockerfile: dev.Dockerfile
     command:
       - "/app/target/debug/type_ahead"
+    environment:
+      TYPEAHEAD_PORT: "5000"
     ports:
       - 5000:5000/tcp
     volumes:
       - ./app:/app
 
   release:
-    container_name: type-ahead-release
+    container_name: typeahead-release
     build:
       context: .
       dockerfile: release.Dockerfile
@@ -28,7 +30,7 @@ services:
       - 5000:5000/tcp
   
   lambda:
-    container_name: type-ahead-lambda
+    container_name: typeahead-lambda
     build:
       context: .
       dockerfile: lambda.Dockerfile
@@ -38,7 +40,7 @@ services:
       - 9000:9000/tcp
   
   #dev2:
-  #  container_name: type-ahead-dev2
+  #  container_name: typeahead-dev2
   #  build:
   #    context: .
   #    dockerfile: dev2.Dockerfile
@@ -50,7 +52,7 @@ services:
   #  #  - ./src:/app/src
   #  #  #- ./target:/app/target
   #debug:
-  #  container_name: type-ahead-debug
+  #  container_name: typeahead-debug
   #  build:
   #    context: .
   #    dockerfile: debug.Dockerfile

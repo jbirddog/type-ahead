@@ -8,7 +8,9 @@ WORKDIR /app
 
 COPY app/ ./
 
-RUN cargo build
+RUN \
+    --mount=type=cache,target=/var/cache/cargo \
+    cargo build
 
 WORKDIR /artifacts
 
