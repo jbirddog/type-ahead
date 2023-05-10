@@ -113,3 +113,7 @@ start: stop compile
 .PHONY: sim
 sim:
 	python sim.py
+
+.PHONY: logs
+logs:
+	docker logs -f typeahead-dev
