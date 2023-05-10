@@ -12,8 +12,10 @@ services:
       dockerfile: dev.Dockerfile
     command:
       - "/app/target/debug/type_ahead"
+    environment:
+      TYPEAHEAD_PORT: "6500"
     ports:
-      - 5000:5000/tcp
+      - 6500:6500/tcp
     volumes:
       - ./app:/app
 

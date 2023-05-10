@@ -4,6 +4,8 @@ use serde::Deserialize;
 
 use type_ahead_db::{execute, Pool, Query};
 
+mod config;
+
 // TODO move the handlers out
 async fn hello() -> impl Responder {
     // TODO: load demo index.html page
@@ -57,7 +59,9 @@ async fn find_states_starting_with(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // TODO: config all the things
+    let host = config::host();
+    let port = config::port();
+
     // TODO: logging
     let manager = SqliteConnectionManager::file("../artifacts/data.db");
     let pool = Pool::new(manager).unwrap();
@@ -82,7 +86,7 @@ async fn main() -> std::io::Result<()> {
                     .route(web::get().to(find_states_starting_with)),
             )
     })
-    .bind(("0.0.0.0", 5000))?
+    .bind((host, port))?
     .run()
     .await
 }
