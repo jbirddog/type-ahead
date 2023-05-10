@@ -1,4 +1,4 @@
-FROM ghcr.io/jbirddog/typeahead-data:main AS data
+FROM ghcr.io/jbirddog/type-ahead-data:main AS data
     
 FROM calavera/cargo-lambda AS base
 
